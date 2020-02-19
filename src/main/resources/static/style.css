@@ -1,0 +1,19 @@
+html,body {
+    min-height: 100%;
+    height: 100vh;
+}
+
+#t {
+    height: 100%;
+}
+
+#t.container-fluid {
+    /*background: #123456;*/
+    background: linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('img/cosmosBlue.png') center center no-repeat;
+
+}
+
+.my-button {
+    margin-bottom: 5%;
+    height: 5%;
+}

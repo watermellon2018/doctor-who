@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
 
-<!--    TODO:: sytyle-->
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -26,12 +25,20 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-<h2>Hello Twitter Bootstrap</h2>
+<div id="t" class="container-fluid">
+    <div class="row justify-content-end h-100">
+        <div class="col-4 d-flex">
+            <div class="btn-group-vertical" style="width: 40%">
 
-<div class="btn-group">
-    <button type="button" class="btn btn-success">This is a success button</button>
-    <button type="button" class="btn btn-warning">This is a warning button</button>
-    <button type="button" class="btn btn-danger">This is a danger button</button>
+                <button class="btn-block btn-warning my-button">Гость</button>
+                <button class="btn-block btn-warning my-button">Войти</button>
+<!--                <a class="btn btn-primary" href="#" role="button">Link</a>
+-->
+            </div>
+        </div>
+    </div>
 </div>
+
+
 </body>
 </html>
