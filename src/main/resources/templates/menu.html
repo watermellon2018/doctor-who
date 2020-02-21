@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="parts/css/title.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+<!--TODO:: вынести в отдельный файл и подключить, так как шапка будет везде одинаковая-->
+<!--<div id="title" class="container-fluid" style="height: 10%; min-height: 5%;-->
+<!--    background: #123456 url('img/cosmos.jpg') no-repeat">-->
+<!--<div class="row h-100">-->
+<!--    <div class="col-11" ></div>-->
+<!--    <div class="col text-right align-self-center">-->
+<!--        <a id="avatar" href="https://www.yandex.ru/" class="btn btn-circle"-->
+<!--           style="background-image: url('img/girl32.png'); background-repeat: no-repeat"></a>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</div>-->
+<div id="title" data-th-include="html/title.html"></div>
+
+<nav class="nav sticky-top nav-tabs" style="background-color: white" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-series-tab" data-toggle="tab"
+       href="#nav-series" role="tab" aria-controls="nav-series" aria-selected="true">Сериал</a>
+    <a class="nav-item nav-link" id="nav-book-tab" data-toggle="tab"
+       href="#nav-book" role="tab" aria-controls="nav-book" aria-selected="false">Книги</a>
+    <a class="nav-item nav-link" id="nav-audio-tab" data-toggle="tab"
+       href="#nav-audio" role="tab" aria-controls="nav-audio" aria-selected="false">Аудиопьесы</a>
+    <a class="nav-item nav-link" id="nav-game-tab" data-toggle="tab"
+       href="#nav-game" role="tab" aria-controls="nav-game" aria-selected="false">Игры</a>
+    <a class="nav-item nav-link" id="nav-people-tab" data-toggle="tab"
+       href="#nav-people" role="tab" aria-controls="nav-people" aria-selected="false">Персонажи</a>
+
+</nav>
+<div class="tab-content h-100" id="panel-data">
+    <div class="tab-pane fade show active"  role="tabpanel" aria-labelledby="nav-series-tab">
+        <div id="nav-series" th:include="html/content/html/serias.html"></div>
+    </div>
+
+    <div class="tab-pane fade" id="nav-book" role="tabpanel" aria-labelledby="nav-book-tab">В разработке</div>
+    <div class="tab-pane fade" id="nav-audio" role="tabpanel" aria-labelledby="nav-audio-tab">В разработке</div>
+    <div class="tab-pane fade" id="nav-game" role="tabpanel" aria-labelledby="nav-game-tab">В разработке</div>
+    <div class="tab-pane fade" id="nav-people" role="tabpanel" aria-labelledby="nav-people-tab">В разработке</div>
+
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-light">
+    <a class="navbar-brand" href="#">Fixed bottom</a>
+    <a class="navbar-brand" href="#">Нужно придумать</a>
+</nav>
+
+
+<!--<div id="divMenu" class="container-fluid">-->
+<!--    <div class="row">-->
+<!--        <div class="col-4">-->
+<!--&lt;!&ndash;    <div class="row justify-content-end h-100">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-4 d-flex">&ndash;&gt;-->
+<!--            <ul class="nav flex-column">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="#">Active</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" href="#">Link</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+</body>
+</html>

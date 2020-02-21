@@ -10,6 +10,6 @@ public class HelloWorldController {
     @RequestMapping("/")
     public String helloWorld(Model model) {
         //return "forward:index.html";
-        return "test";
+        return "menu";
     }
 }
