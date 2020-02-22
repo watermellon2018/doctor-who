@@ -4,16 +4,11 @@ html,body {
 }
 
 #title {
-    /*padding: 1%;*/
     padding-top: 1%;
     padding-bottom: 1%;
-    min-height: 5%;
+    min-height: 10%;
     background: #123456 url('../img/cosmos.jpg') no-repeat;
 }
-
-/*#panel-data {*/
-/*    padding: 1%;*/
-/*}*/
 
 #nav-series {
     /* !*background: #A0C5E8; КРАСИВЫЙ ЦВЕТ!!!! *!*/
