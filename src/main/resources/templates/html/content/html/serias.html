@@ -1,3 +1,70 @@
+<script>
+    // TODO:: не могу получить данные из комбобокса - получай див. Если бы был select, то все нормально
+    // Иначе конфликт с bootstrapом
+    class Data {
+        character =["Персонаж 1", "Персонаж 2", "Персонаж 3", "Персонаж 4"];
+        time = [];
+        planet = [];
+        doctor = [];
+
+        getByIndex(i){
+            if(i === 0)
+                return this.character;
+            else if(i === 1)
+                return this.time;
+            else if(i === 2)
+                return this.planet;
+            else if(i === 3)
+                return this.doctor;
+        }
+        // TODO:: to add later
+    }
+
+    window.onload = function() {
+        var inputs = document.getElementsByTagName("input");
+
+        const data = new Data();
+
+        for(let i = 0; i<inputs.length; ++i){
+            let id = inputs[i].getAttribute("id");
+           /* id = id + 'ComboBox';
+            var comboBox = document.getElementById(id);
+            idComboBoxList[i] = id;*/
+
+
+            inputs[i].addEventListener("input", function () {
+                var checker = inputs[i].value; // получаем текущее содержимое
+                word2 = checker.replace(' ', '').split('');
+               // var comboBox = document.getElementById(id);
+                const d = data.getByIndex(i);
+
+                for(j = 0; j < d.length; ++j){
+                    // рабить слова по буквам
+                    name = d[j];
+                    word = name.replace(' ', '').split(''); // буквы
+
+                    for(k1 = 0; k1 < word2.length; ++k1){
+                        for(k2 = 0; k2 < word.length; ++k2){
+                            // TODO:: косинусная метрика
+                        }
+                    }
+                }
+                //var k;
+
+               /* for (k = 0; k < comboBox.options.length; ++k) {
+                   var data = comboBox.options[i].value;
+                   alert(data);
+                }*/
+
+                /* Используем косинусную метрику
+                * */
+
+            });
+        }
+    };
+
+</script>
+
 <div class="row container-fluid">
     <div class="col">
         <a href="#" class="badge badge-primary" style="margin-bottom: 10px; display: block; width: 140px">Показать выбранное</a>
@@ -5,13 +72,13 @@
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                     style="border-top-right-radius: 0px; border-bottom-right-radius: 0px">
             </button>
-            <div class="dropdown-menu">
-                <button class="dropdown-item">Персонаж 1</button>
-                <button class="dropdown-item">Персонаж 2</button>
-                <button class="dropdown-item">Персонаж 3</button>
-                <button class="dropdown-item">Персонаж 4</button>
+            <div class="dropdown-menu" id="characterComboBox">
+                <option class="dropdown-item">Персонаж 1</option>
+                <option class="dropdown-item">Персонаж 2</option>
+                <option class="dropdown-item">Персонаж 3</option>
+                <option class="dropdown-item">Персонаж 4</option>
             </div>
-            <input class="text-input" title="Персонажи" placeholder="Персонажи" id="filterForCharacter" size="18" type="text">
+            <input class="text-input" title="Персонажи" placeholder="Персонажи" id="character" size="18" type="text">
         </div>
     </div>
 
@@ -43,8 +110,8 @@
             <div class="dropdown-menu">
                 <button class="dropdown-item">Земля</button>
                 <button class="dropdown-item">Планета 1</button>
+                <button class="dropdown-item">Планета 2</button>
                 <button class="dropdown-item">Планета 3</button>
-                <button class="dropdown-item">Планета 4</button>
             </div>
             <input class="text-input" placeholder="Планета" id="filterForPlanet" size="18" type="text">
         </div>
@@ -81,7 +148,7 @@
 
 <table id="table-data" class="table table-striped table-bordered" style="margin-top: 50px">
     <thead>
-    <tr class="table-warning">
+    <tr class="table-info">
         <th style="width: 10%" scope="col">№</th>
         <th style="width: 20%" scope="col">Название</th>
         <th style="width: 70%" scope="col">Описание</th>

@@ -24,11 +24,21 @@
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
+<script>
+
+    $('#nav-tab a[href="#nav-series"]').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+       // $('#tab-series').load('/html/content/html/serias.html');
+    })
+</script>
+
 <div id="title" data-th-include="html/title.html"></div>
 
-<nav class="nav sticky-top nav-tabs" style="background-color: white" id="nav-tab" role="tablist">
+<nav>
+<div class="nav sticky-top nav-tabs" style="background-color: white" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-series-tab" data-toggle="tab"
-       href="#nav-series" role="tab" aria-controls="nav-series" aria-selected="true">Сериал</a>
+       href="#nav-  series" role="tab" aria-controls="nav-series" aria-selected="true">Сериал</a>
     <a class="nav-item nav-link" id="nav-book-tab" data-toggle="tab"
        href="#nav-book" role="tab" aria-controls="nav-book" aria-selected="false">Книги</a>
     <a class="nav-item nav-link" id="nav-audio-tab" data-toggle="tab"
@@ -38,16 +48,16 @@
     <a class="nav-item nav-link" id="nav-people-tab" data-toggle="tab"
        href="#nav-people" role="tab" aria-controls="nav-people" aria-selected="false">Персонажи</a>
 
-</nav>
+</div>
 <div class="tab-content h-100" id="panel-data">
-    <div class="tab-pane fade show active"  role="tabpanel" aria-labelledby="nav-series-tab">
+    <div id="tab-series" class="tab-pane fade show active"  role="tabpanel" aria-labelledby="nav-series-tab">
         <div id="nav-series" th:include="html/content/html/serias.html"></div>
     </div>
 
-    <div class="tab-pane fade" id="nav-book" role="tabpanel" aria-labelledby="nav-book-tab">В разработке</div>
-    <div class="tab-pane fade" id="nav-audio" role="tabpanel" aria-labelledby="nav-audio-tab">В разработке</div>
-    <div class="tab-pane fade" id="nav-game" role="tabpanel" aria-labelledby="nav-game-tab">В разработке</div>
-    <div class="tab-pane fade" id="nav-people" role="tabpanel" aria-labelledby="nav-people-tab">В разработке</div>
+    <div class="tab-pane fade" id="nav-book" role="tabpanel" aria-labelledby="nav-book-tab">В разработке1</div>
+    <div class="tab-pane fade" id="nav-audio" role="tabpanel" aria-labelledby="nav-audio-tab">В разработке2</div>
+    <div class="tab-pane fade" id="nav-game" role="tabpanel" aria-labelledby="nav-game-tab">В разработке3</div>
+    <div class="tab-pane fade" id="nav-people" role="tabpanel" aria-labelledby="nav-people-tab">В разработке4</div>
 
 </div>
 
