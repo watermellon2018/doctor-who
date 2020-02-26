@@ -1,147 +1,151 @@
+<!--Правила: при добавлении ногового выпадающего списка у тэга ul id = *псевдоним*+ComboBox,
+button`s id = *псевдоним* + List-->
 <script>
-    // TODO:: не могу получить данные из комбобокса - получай див. Если бы был select, то все нормально
-    // Иначе конфликт с bootstrapом
+
+    /** Наши данные для выпадающих списков **/
     class Data {
         character =["Персонаж 1", "Персонаж 2", "Персонаж 3", "Персонаж 4"];
-        time = [];
-        planet = [];
-        doctor = [];
+        time = ["Будущее", "Прошлое", "Настоящее"];
+        planet = ["Земля", "Планета 1", "Планета 2", "Планета 3"];
+        doctor = ["1","2","3","4","5","6","7","8","8.5","9","10","11","12","13"];
 
         getByIndex(i){
-            if(i === 0)
+            if(i === 'character')
                 return this.character;
-            else if(i === 1)
+            else if(i === 'time')
                 return this.time;
-            else if(i === 2)
+            else if(i === 'planet')
                 return this.planet;
-            else if(i === 3)
+            else if(i === 'doctor')
                 return this.doctor;
         }
         // TODO:: to add later
     }
 
-    window.onload = function() {
-        var inputs = document.getElementsByTagName("input");
+    /** Собираем массив псевдонимов для всех выпадающих списков.
+     * Чтобы избежать путаницы при добавлении нового списка в радномном месте, создаем динамически сборщик псевдонимов.
+     * По псевдониму в дальнейшем формируются имена id для различных компонентов
+     * При загрузке окна назначаем обработчик событий для всех выпадающих списков:
+     * если произошло первое нажатие, загружаем данные, иначе ничего не меняем
+     * TODO:: В дальнейшем: при редактировании поля для поиска, задавать значение аттрибута isLoad = false
+     * **/
 
+    window.onload = function() {
+       psevdoname = [];
+       const column =  document.getElementsByClassName("col");
+       for(let i = 0; i<column.length; i++) {
+           if(column[i].getAttribute("name") !== null)
+                psevdoname.push(column[i].getAttribute("name"));
+       }
+
+        for(let i = 0; i<psevdoname.length; ++i) {
+            const list = document.getElementById(psevdoname[i]+'ListBut');
+            const cmbox = document.getElementById(psevdoname[i] + 'ComboBox');
+            cmbox.setAttribute("isLoad", "false")
+
+            list.addEventListener("click", function () {
+                if(cmbox.getAttribute("isLoad") === "false") {
+                    cmbox.setAttribute("isLoad", "true");
+                    cmbox.innerHTML = generateList(psevdoname[i]);
+                }
+            });
+        }
+
+        var inputs = document.getElementsByTagName("input");
         const data = new Data();
 
         for(let i = 0; i<inputs.length; ++i){
             let id = inputs[i].getAttribute("id");
-           /* id = id + 'ComboBox';
-            var comboBox = document.getElementById(id);
-            idComboBoxList[i] = id;*/
+            /* id = id + 'ComboBox';
+             var comboBox = document.getElementById(id);
+             idComboBoxList[i] = id;*/
 
 
             inputs[i].addEventListener("input", function () {
-                var checker = inputs[i].value; // получаем текущее содержимое
-                word2 = checker.replace(' ', '').split('');
-               // var comboBox = document.getElementById(id);
-                const d = data.getByIndex(i);
-
-                for(j = 0; j < d.length; ++j){
-                    // рабить слова по буквам
-                    name = d[j];
-                    word = name.replace(' ', '').split(''); // буквы
-
-                    for(k1 = 0; k1 < word2.length; ++k1){
-                        for(k2 = 0; k2 < word.length; ++k2){
-                            // TODO:: косинусная метрика
-                        }
-                    }
-                }
-                //var k;
-
-               /* for (k = 0; k < comboBox.options.length; ++k) {
-                   var data = comboBox.options[i].value;
-                   alert(data);
-                }*/
-
-                /* Используем косинусную метрику
-                * */
+                var combobox = document.getElementById("testCom");
 
             });
         }
     };
 
+    function generateList(name) {
+        let ans = '';
+        const map = new Data();
+        const data = map.getByIndex(name)
+        for(let i = 0; i<data.length; ++i)
+            ans = ans + "<li class=\"dropdown-item\">" + data[i] + "</li>";
+
+        return ans;
+    }
+
 </script>
 
+<!--Псевдоним: character-->
 <div class="row container-fluid">
-    <div class="col">
+    <div class="col" name="character">
+
         <a href="#" class="badge badge-primary" style="margin-bottom: 10px; display: block; width: 140px">Показать выбранное</a>
         <div class="input-append btn-group" style="margin-bottom: 10px">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+            <button id="characterListBut" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                     style="border-top-right-radius: 0px; border-bottom-right-radius: 0px">
             </button>
-            <div class="dropdown-menu" id="characterComboBox">
-                <option class="dropdown-item">Персонаж 1</option>
-                <option class="dropdown-item">Персонаж 2</option>
-                <option class="dropdown-item">Персонаж 3</option>
-                <option class="dropdown-item">Персонаж 4</option>
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="characterComboBox">
+                </ul>
             </div>
-            <input class="text-input" title="Персонажи" placeholder="Персонажи" id="character" size="18" type="text">
+            <input class="text-input" title="Персонажи" placeholder="Персонажи" id="characterField" size="18" type="text">
         </div>
     </div>
 
     <!--TODO:: СДЕЛАТЬ ФИЛЬТРАЦИЮ-->
 
-    <div class="col">
+    <!--Псевдоним: time-->
+    <div class="col" name="time">
 
         <a href="#" class="badge badge-primary" style="margin-bottom: 10px; display: block; width: 140px">Показать выбранное</a>
 
         <div class="input-append btn-group" style="margin-bottom: 10px">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+            <button id="timeListBut" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                     style="border-top-right-radius: 0px; border-bottom-right-radius: 0px">
             </button>
-            <div class="dropdown-menu">
-                <button class="dropdown-item">Будущее</button>
-                <button class="dropdown-item">Прошлое</button>
-                <button class="dropdown-item">Настоящее</button>
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="timeComboBox">
+                </ul>
             </div>
-            <input class="text-input" placeholder="Время" id="filterForTimeTravel" size="18" type="text">
+            <input class="text-input" placeholder="Время" id="filterForTime" size="18" type="text">
         </div>
     </div>
 
-    <div class="col">
+    <!--Псевдоним: planet-->
+    <div class="col" name="planet">
         <a href="#" class="badge badge-primary" style="margin-bottom: 10px; display: block; width: 140px">Показать выбранное</a>
         <div class="input-append btn-group" style="margin-bottom: 10px">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+            <button id="planetListBut" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                     style="border-top-right-radius: 0px; border-bottom-right-radius: 0px">
             </button>
-            <div class="dropdown-menu">
-                <button class="dropdown-item">Земля</button>
-                <button class="dropdown-item">Планета 1</button>
-                <button class="dropdown-item">Планета 2</button>
-                <button class="dropdown-item">Планета 3</button>
+
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="planetComboBox">
+                </ul>
             </div>
             <input class="text-input" placeholder="Планета" id="filterForPlanet" size="18" type="text">
         </div>
     </div>
 
-    <div class="col">
+    <!--    Псевдоним: doctor-->
+    <div class="col" name="doctor">
 
         <a href="#" class="badge badge-primary" style="margin-bottom: 10px; display: block; width: 140px">Показать выбранное</a>
 
         <div class="input-append btn-group" style="margin-bottom: 10px">
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+            <button id="doctorListBut" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                     style="border-top-right-radius: 0px; border-bottom-right-radius: 0px">
             </button>
-            <div class="dropdown-menu">
-                <button class="dropdown-item">1</button>
-                <button class="dropdown-item">2</button>
-                <button class="dropdown-item">3</button>
-                <button class="dropdown-item">4</button>
-                <button class="dropdown-item">5</button>
-                <button class="dropdown-item">6</button>
-                <button class="dropdown-item">7</button>
-                <button class="dropdown-item">8</button>
-                <button class="dropdown-item">8.5</button>
-                <button class="dropdown-item">9</button>
-                <button class="dropdown-item">10</button>
-                <button class="dropdown-item">11</button>
-                <button class="dropdown-item">12</button>
-                <button class="dropdown-item">13</button>
+            <div class="dropdown">
+                <ul class="dropdown-menu" id="doctorComboBox">
+                </ul>
             </div>
-            <input class="text-input" placeholder="Доктор" id="filterForNumberDoc" size="18" type="text">
+            <input class="text-input" placeholder="Доктор" id="filterForNumberDoctor" size="18" type="text">
         </div>
     </div>
 </div>
