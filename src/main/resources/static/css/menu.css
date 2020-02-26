@@ -14,3 +14,8 @@ html,body {
     /* !*background: #A0C5E8; КРАСИВЫЙ ЦВЕТ!!!! *!*/
     padding: 1%;
 }
+
+.dropdown-menu {
+    max-height: 150px;
+    overflow-x: hidden;
+}
