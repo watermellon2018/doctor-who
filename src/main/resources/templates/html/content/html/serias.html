@@ -22,6 +22,7 @@ button`s id = *псевдоним* + List-->
         // TODO:: to add later
     }
 
+
     /** Собираем массив псевдонимов для всех выпадающих списков.
      * Чтобы избежать путаницы при добавлении нового списка в радномном месте, создаем динамически сборщик псевдонимов.
      * По псевдониму в дальнейшем формируются имена id для различных компонентов
@@ -39,6 +40,8 @@ button`s id = *псевдоним* + List-->
                 psevdoname.push(column[i].getAttribute("name"));
        }
 
+       /** Динамическое заполнение выпадающих списков при клике на кнопку**/
+
         for(let i = 0; i<psevdoname.length; ++i) {
             const list = document.getElementById(psevdoname[i]+'ListBut');
             const cmbox = document.getElementById(psevdoname[i] + 'ComboBox');
@@ -52,10 +55,10 @@ button`s id = *псевдоним* + List-->
             });
         }
 
-        /* При каждой вводимой буквой в input, ищутся похожие слова из массива данных.
+        /** При каждой вводимой буквой в input, ищутся похожие слова из массива данных.
         * Выводятся (предлагаются) первые 4 максимально близких слова
         *  АЛГОРИТ ДЛЯ ПОИСКА ПОХОЖИХ СЛОВ - АЛГОРИТМ ЛЕВЕНШТЕЙНА
-        * */
+        * **/
 
         var inputs = document.getElementsByTagName("input");
 
@@ -70,7 +73,14 @@ button`s id = *псевдоним* + List-->
                    dist.push({distance: v, name: possibleData[i]});
                }
 
-               dist.sort();
+               dist.sort(function (a,b) {
+                    if(a.distance > b.distance)
+                        return 1;
+                    else if(a.distance===b.distance)
+                        return 0;
+                    return -1;
+               });
+
                newDataInList = dist.slice(0, 4);
 
                 const cmbox = document.getElementById(psevdoname[i] + 'ComboBox');
@@ -78,7 +88,6 @@ button`s id = *псевдоним* + List-->
                     return item.name;
                 }));
                 cmbox.setAttribute("isLoad", "false");
-
             });
         }
     };
