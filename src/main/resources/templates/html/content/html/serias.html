@@ -4,7 +4,7 @@ button`s id = *псевдоним* + List-->
 
     /** Наши данные для выпадающих списков **/
     class Data {
-        character =["Персонаж 1", "Персонаж 2", "Персонаж 3", "Персонаж 4"];
+        character =["Персонаж 1", "Персонаж 2", "Персонаж 3", "Персонаж 4", "OO", "OOOO", "F", "АААА", "ВВВВ"];
         time = ["Будущее", "Прошлое", "Настоящее"];
         planet = ["Земля", "Планета 1", "Планета 2", "Планета 3"];
         doctor = ["1","2","3","4","5","6","7","8","8.5","9","10","11","12","13"];
@@ -32,6 +32,7 @@ button`s id = *псевдоним* + List-->
 
     window.onload = function() {
        psevdoname = [];
+       const data = new Data();
        const column =  document.getElementsByClassName("col");
        for(let i = 0; i<column.length; i++) {
            if(column[i].getAttribute("name") !== null)
@@ -46,36 +47,81 @@ button`s id = *псевдоним* + List-->
             list.addEventListener("click", function () {
                 if(cmbox.getAttribute("isLoad") === "false") {
                     cmbox.setAttribute("isLoad", "true");
-                    cmbox.innerHTML = generateList(psevdoname[i]);
+                    cmbox.innerHTML = generateList(data.getByIndex(psevdoname[i]));
                 }
             });
         }
 
+        /* При каждой вводимой буквой в input, ищутся похожие слова из массива данных.
+        * Выводятся (предлагаются) первые 4 максимально близких слова
+        *  АЛГОРИТ ДЛЯ ПОИСКА ПОХОЖИХ СЛОВ - АЛГОРИТМ ЛЕВЕНШТЕЙНА
+        * */
+
         var inputs = document.getElementsByTagName("input");
-        const data = new Data();
 
-        for(let i = 0; i<inputs.length; ++i){
-            let id = inputs[i].getAttribute("id");
-            /* id = id + 'ComboBox';
-             var comboBox = document.getElementById(id);
-             idComboBoxList[i] = id;*/
-
+        for(let i = 0; i < inputs.length; ++i){
 
             inputs[i].addEventListener("input", function () {
-                var combobox = document.getElementById("testCom");
+               dist = [];
+               var val = inputs[i].value;
+               const possibleData = data.getByIndex(psevdoname[i]);
+               for(let i = 0; i < possibleData.length; ++i){
+                   const v = levenshteinDistance(val, possibleData[i]);
+                   dist.push({distance: v, name: possibleData[i]});
+               }
+
+               dist.sort();
+               newDataInList = dist.slice(0, 4);
+
+                const cmbox = document.getElementById(psevdoname[i] + 'ComboBox');
+                cmbox.innerHTML = generateList(newDataInList.map(item=>{
+                    return item.name;
+                }));
+                cmbox.setAttribute("isLoad", "false");
 
             });
         }
     };
 
-    function generateList(name) {
+    function generateList(data) {
         let ans = '';
-        const map = new Data();
-        const data = map.getByIndex(name)
         for(let i = 0; i<data.length; ++i)
             ans = ans + "<li class=\"dropdown-item\">" + data[i] + "</li>";
 
         return ans;
+    }
+
+    // Расстояние Левенштейна
+    function levenshteinDistance (a, b) {
+
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
+
+        var matrix = [];
+
+        var i;
+        for (i = 0; i <= b.length; i++) {
+            matrix[i] = [i];
+        }
+
+        var j;
+        for (j = 0; j <= a.length; j++) {
+            matrix[0][j] = j;
+        }
+
+        for (i = 1; i <= b.length; i++) {
+            for (j = 1; j <= a.length; j++) {
+                if (b.charAt(i-1) == a.charAt(j-1)) {
+                    matrix[i][j] = matrix[i-1][j-1];
+                } else {
+                    matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
+                        Math.min(matrix[i][j-1] + 1, // insertion
+                            matrix[i-1][j] + 1)); // deletion
+                }
+            }
+        }
+
+        return matrix[b.length][a.length];
     }
 
 </script>
